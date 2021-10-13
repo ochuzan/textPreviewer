@@ -166,5 +166,5 @@ const colors = [
     'Yellow',
     'YellowGreen',
 ];
-
-// Add Javascript Here
+// Random Color API
+// https://www.colourlovers.com/api/colors/random&format=json
