@@ -9,12 +9,15 @@ const fonts = [
     'Didot', 
     'Georgia', 
     'American Typewriter', 
-    'Andalé Mono', 'Courier', 
-    'Lucida Console', 'Monaco', 
+    'Andalé Mono', 
+    'Courier', 
+    'Lucida Console', 
+    'Monaco', 
     'Bradley Hand', 
     'Brush Script MT', 
     'Luminari', 
-    'Comic Sans MS'
+    'Comic Sans MS',
+    'Fantasy'
 ];
 const colors = [
     'AliceBlue',
@@ -171,3 +174,89 @@ const colors = [
 // https://www.colourlovers.com/api/colors/random&format=json
 
 // Add Javascript Here
+
+let fontSelection = document.querySelector('#font-selection');
+
+// for (let font of fonts) {
+//     let option = document.createElement('option');
+//     option.value = font;
+//     option.textContent = font;
+//     fontSelection.append(option);
+// }
+
+fonts.forEach(font => {
+    let option = document.createElement('option');
+    option.value = font;
+    option.textContent = font;
+    option.setAttribute('style', `font-family: ${font.toLowerCase()}`);
+    fontSelection.append(option);
+});
+
+let colorSelection = document.querySelector('#color-selection');
+
+// for (let color of colors) {
+//     let option = document.createElement('option');
+//     option.value = color;
+//     option.textContent = color;
+//     colorSelection.append(option);
+// }
+
+colors.forEach(color => {
+    let option = document.createElement('option');
+    option.value = color;
+    option.textContent = color;
+    colorSelection.append(option);
+});
+
+let textInput = document.querySelector('#text-input');
+let previewPlaceholder = document.querySelector('#preview-placeholder');
+
+textInput.addEventListener('input', (e)=> {
+    previewPlaceholder.textContent = e.target.value;
+});
+
+fontSelection.addEventListener('change', (e)=>{
+    previewPlaceholder.style.fontFamily = e.target.value;
+});
+
+colorSelection.addEventListener('change', (e)=>{
+    previewPlaceholder.style.color = e.target.value;
+});
+
+let saveButton = document.querySelector('#save-button');
+
+// // My way
+saveButton.addEventListener('click', ()=> {
+    let li = document.createElement('li');
+    li.textContent = previewPlaceholder.textContent;
+    li.style.fontFamily = fontSelection.value
+    li.style.color = colorSelection.value
+
+    let list = document.querySelector('#saved-list ul');
+    ul.append(li);
+})
+
+// // Greg's way
+// saveButton.addEventListener('click', ()=> {
+//     let li = document.createElement('li');
+//     let list = document.querySelector('ul');
+//     li.textContent = textInput.textContent;
+//     li.style.fontFamily = fontSelection.value
+//     li.style.color = colorSelection.value
+
+//     list.append(li);
+// })
+
+let starWars = document.querySelector('#star-wars');
+
+fetch('https://swapi.dev/api/people/')
+    .then((res) => res.json())
+    .then((data) => {
+        let characterList = data.results;
+
+        for (let character of characterList) {
+            let div = document.createElement('div');
+            div.textContent = character.name;
+            starWars.append(div);
+        }
+    })
